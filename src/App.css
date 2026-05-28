@@ -26,6 +26,11 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--bg-canvas);
@@ -41,6 +46,8 @@ input, textarea, button { font-family: inherit; font-size: inherit; }
 .app {
   display: flex;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .sidebar {
@@ -63,6 +70,8 @@ input, textarea, button { font-family: inherit; font-size: inherit; }
   padding: 28px 32px;
   max-width: 1200px;
   min-height: 100vh;
+  min-width: 0;
+  width: calc(100% - 220px);
 }
 
 .page-loading {
@@ -278,6 +287,11 @@ input, textarea, button { font-family: inherit; font-size: inherit; }
   gap: 20px;
 }
 
+.dashboard-grids,
+.dashboard-side {
+  min-width: 0;
+}
+
 .dashboard-grids { display: flex; flex-direction: column; gap: 16px; }
 
 /* ── Contribution Grid ───────────────────────────────── */
@@ -333,6 +347,7 @@ input, textarea, button { font-family: inherit; font-size: inherit; }
   grid-template-columns: 28px 1fr;
   grid-template-rows: 18px 1fr;
   gap: 0;
+  min-width: 0;
 }
 
 .contrib-months {
@@ -405,6 +420,7 @@ input, textarea, button { font-family: inherit; font-size: inherit; }
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  gap: 12px;
 }
 
 .today-header h3 { font-size: 16px; font-weight: 600; }
@@ -625,6 +641,7 @@ input, textarea, button { font-family: inherit; font-size: inherit; }
   gap: 12px;
   padding: 12px 16px;
   transition: all 0.15s;
+  min-width: 0;
 }
 
 .habit-row:hover { background: rgba(255,255,255,0.01); }
@@ -1107,6 +1124,10 @@ textarea:focus { border-color: var(--accent-green); }
   .dashboard-main { grid-template-columns: 1fr; }
   .chart-grid { grid-template-columns: 1fr; }
   .stats-row { flex-wrap: nowrap; }
+  .content {
+    max-width: none;
+    width: calc(100% - 220px);
+  }
 }
 
 @media (max-width: 700px) {
@@ -1117,11 +1138,71 @@ textarea:focus { border-color: var(--accent-green); }
   .sidebar.open { transform: translateX(0); }
   .sidebar-overlay { display: block; }
   .mobile-menu { display: flex; align-items: center; justify-content: center; }
-  .content { margin-left: 0; padding: 60px 16px 24px; }
+  .content {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 60px 16px 24px;
+    overflow-x: hidden;
+  }
   .stats-row { gap: 8px; }
   .stat-card { padding: 12px 14px; }
   .stat-value { font-size: 20px; }
-  .contrib-grid-wrapper { overflow-x: auto; }
+  .page-header,
+  .today-header,
+  .entry-header,
+  .note-card-header,
+  .settings-actions,
+  .habit-row,
+  .habit-actions,
+  .contrib-header,
+  .contrib-stats,
+  .habit-meta {
+    flex-wrap: wrap;
+  }
+  .page-header,
+  .today-header,
+  .settings-actions,
+  .contrib-header {
+    align-items: flex-start;
+  }
+  .stats-row {
+    margin-inline: -2px;
+    padding-inline: 2px;
+  }
+  .contrib-card,
+  .today-card,
+  .chart-card,
+  .settings-section,
+  .journal-input-card,
+  .note-editor-card,
+  .history-panel,
+  .habit-form {
+    padding: 16px;
+  }
+  .contrib-grid-wrapper {
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .contrib-months,
+  .contrib-grid {
+    min-width: 620px;
+  }
+  .today-item {
+    gap: 8px;
+    padding: 10px 8px;
+  }
+  .today-streak {
+    margin-left: auto;
+  }
+  .history-grid,
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+  .journal-entry,
+  .note-card {
+    padding: 14px;
+  }
   .habits-helper-card,
   .history-panel-header,
   .history-footer {
@@ -1130,6 +1211,11 @@ textarea:focus { border-color: var(--accent-green); }
   }
   .history-range-row {
     grid-template-columns: 1fr;
+  }
+  .habit-info,
+  .today-name,
+  .entry-time {
+    min-width: 0;
   }
 }
 
